@@ -31,7 +31,7 @@ const StyledDualTag = styled(DualTag)`
   }
 `
 
-const Tags: React.FunctionComponent<FarmWithStakedValue> = ({ tokenSymbol, dual }) => {
+const Tags: React.FC<FarmWithStakedValue> = ({ tokenSymbol, dual }) => {
   const isCommunityFarm = communityFarms.includes(tokenSymbol)
 
   return (

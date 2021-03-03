@@ -18,10 +18,10 @@ import { provider } from 'web3-core'
 import { orderBy } from 'lodash'
 
 import FarmCard, { FarmWithStakedValue } from './components/FarmCard/FarmCard'
-import Table from './components/Table/Table'
+import FarmTable from './components/FarmTable/FarmTable'
 import FarmTabButtons from './components/FarmTabButtons'
 import SearchInput from './components/SearchInput'
-import { RowProps } from './components/Table/Row'
+import { RowProps } from './components/FarmTable/Row'
 import ToggleView from './components/ToggleView/ToggleView'
 import { DesktopColumnSchema, ViewMode } from './components/types'
 import Select, { OptionProps } from './components/Select/Select'
@@ -99,7 +99,7 @@ const StyledImage = styled(Image)`
 
 const Header = styled.div`
   padding: 32px 0px;
-  background: ${(props) => props.theme.colors.gradients.bubblegum};
+  background: ${({ theme }) => theme.colors.gradients.bubblegum};
 
   padding-left: 16px;
   padding-right: 16px;
@@ -301,7 +301,7 @@ const Farms: React.FC = () => {
         sortable: column.sortable,
       }))
 
-      return <Table data={rowData} ref={tableRef} columns={columns} />
+      return <FarmTable data={rowData} ref={tableRef} columns={columns} />
     }
 
     return (

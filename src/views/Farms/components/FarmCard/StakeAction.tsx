@@ -17,34 +17,14 @@ interface FarmCardActionsProps {
   addLiquidityUrl?: string
 }
 
-const StyledHeading = styled(Heading)`
-  margin-right: 48px;
-`
-
-const StakingButtonContainer = styled.div`
-  margin-left: auto;
-`
 const IconButtonWrapper = styled.div`
   display: flex;
-
-  button {
-    width: 32px;
-    height: 32px;
-
-    svg {
-      width: 20px;
-    }
-  }
 `
 
-const StyledButton = styled(Button)`
-  white-space: nowrap;
-  color: white;
-  height: 32px;
-  width: 160px;
-  border-radius: 16px;
-  padding-left: 0;
-  padding-right: 0;
+const StyledIconButton = styled(IconButton)`
+  svg {
+    width: 20px;
+  }
 `
 
 const StakeAction: React.FC<FarmCardActionsProps> = ({
@@ -70,23 +50,23 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
 
   const renderStakingButtons = () => {
     return rawStakedBalance === 0 ? (
-      <StyledButton onClick={onPresentDeposit}>{TranslateString(999, 'Stake LP')}</StyledButton>
+      <Button onClick={onPresentDeposit}>{TranslateString(999, 'Stake LP')}</Button>
     ) : (
       <IconButtonWrapper>
-        <IconButton variant="tertiary" onClick={onPresentWithdraw} mr="6px">
+        <StyledIconButton variant="tertiary" onClick={onPresentWithdraw} mr="6px">
           <MinusIcon color="primary" />
-        </IconButton>
-        <IconButton variant="tertiary" onClick={onPresentDeposit}>
+        </StyledIconButton>
+        <StyledIconButton variant="tertiary" onClick={onPresentDeposit}>
           <AddIcon color="primary" />
-        </IconButton>
+        </StyledIconButton>
       </IconButtonWrapper>
     )
   }
 
   return (
     <Flex justifyContent="space-between" alignItems="center">
-      <StyledHeading color={rawStakedBalance === 0 ? 'textDisabled' : 'text'}>{displayBalance}</StyledHeading>
-      <StakingButtonContainer>{renderStakingButtons()}</StakingButtonContainer>
+      <Heading color={rawStakedBalance === 0 ? 'textDisabled' : 'text'}>{displayBalance}</Heading>
+      {renderStakingButtons()}
     </Flex>
   )
 }

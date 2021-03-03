@@ -8,7 +8,7 @@ export const ActionContainer = styled.div`
   flex-basis: 0;
   margin-bottom: 16px;
 
-  ${({ theme }) => theme.mediaQueries.lg} {
+  ${({ theme }) => theme.mediaQueries.sm} {
     margin-left: 12px;
     margin-bottom: 0;
     max-height: 100px;
@@ -28,11 +28,11 @@ export const ActionTitles = styled.div`
 `
 
 export const Title = styled.span`
-  color: ${(props) => props.theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.secondary};
 `
 
 export const Subtle = styled.span`
-  color: ${(props) => props.theme.colors.textSubtle};
+  color: ${({ theme }) => theme.colors.textSubtle};
 `
 
 export const ActionContent = styled.div`
@@ -48,5 +48,5 @@ export const Earned = styled.div`
 
 export const Staked = styled.div`
   font-size: 12px;
-  color: ${(props) => props.theme.colors.textSubtle};
+  color: ${({ theme }) => theme.colors.textSubtle};
 `

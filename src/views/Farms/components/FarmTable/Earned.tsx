@@ -7,12 +7,12 @@ export interface EarnedProps {
 }
 
 const Amount = styled.span<{ earned: number }>`
-  color: ${(props) => (props.earned ? props.theme.colors.text : props.theme.colors.textDisabled)};
+  color: ${({ earned, theme }) => (earned ? theme.colors.text : theme.colors.textDisabled)};
   display: flex;
   align-items: center;
 `
 
-const Earned: React.FunctionComponent<EarnedProps> = ({ earnings }) => {
+const Earned: React.FC<EarnedProps> = ({ earnings }) => {
   const displayBalance = earnings !== null ? earnings.toLocaleString() : '?'
 
   return <Amount earned={earnings}>{displayBalance}</Amount>

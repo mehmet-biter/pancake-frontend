@@ -46,7 +46,7 @@ const CellInner = styled.div`
 
 const StyledTr = styled.tr`
   cursor: pointer;
-  border-bottom: 2px solid ${(props) => props.theme.colors.borderColor};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.borderColor};
 `
 
 const EarnedMobileCell = styled.td`
@@ -62,7 +62,7 @@ const FarmMobileCell = styled.td`
   padding-top: 24px;
 `
 
-const Row: React.FunctionComponent<RowProps> = (props) => {
+const Row: React.FC<RowProps> = (props) => {
   const { details } = props
   const [actionPanelToggled, setActionPanelToggled] = useState(false)
   const TranslateString = useI18n()

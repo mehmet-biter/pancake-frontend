@@ -37,7 +37,7 @@ const Container = styled.div`
   }
 `
 
-const Farm: React.FunctionComponent<FarmProps> = ({ image, label, pid }) => {
+const Farm: React.FC<FarmProps> = ({ image, label, pid }) => {
   const { stakedBalance } = useFarmUser(pid)
   const TranslateString = useI18n()
   const rawStakedBalance = getBalanceNumber(stakedBalance)

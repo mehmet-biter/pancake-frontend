@@ -44,7 +44,7 @@ const Container = styled.div`
   }
 `
 
-const Tooltip: React.FunctionComponent<TooltipProps> = ({ content, children }) => {
+const Tooltip: React.FC<TooltipProps> = ({ content, children }) => {
   return (
     <Container>
       {children}

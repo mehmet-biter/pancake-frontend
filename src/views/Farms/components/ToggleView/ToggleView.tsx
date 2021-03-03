@@ -16,7 +16,7 @@ const Container = styled.div`
   }
 `
 
-const ToggleView: React.FunctionComponent<ToogleViewProps> = ({ viewMode, onToggle }) => {
+const ToggleView: React.FC<ToogleViewProps> = ({ viewMode, onToggle }) => {
   const handleToggle = (mode: ViewMode) => {
     if (viewMode !== mode) {
       onToggle(mode)

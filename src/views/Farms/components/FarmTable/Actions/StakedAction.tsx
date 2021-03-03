@@ -23,7 +23,7 @@ const IconButtonWrapper = styled.div`
   display: flex;
 `
 
-const Staked: React.FunctionComponent<FarmWithStakedValue> = ({
+const Staked: React.FC<FarmWithStakedValue> = ({
   pid,
   lpSymbol,
   lpAddresses,
@@ -67,42 +67,39 @@ const Staked: React.FunctionComponent<FarmWithStakedValue> = ({
     }
   }, [onApprove])
 
-  if (account) {
-    if (isApproved) {
-      if (rawStakedBalance) {
-        return (
-          <ActionContainer>
-            <ActionTitles>
-              <Title>{lpSymbol} </Title>
-              <Subtle>{TranslateString(999, 'STAKED')}</Subtle>
-            </ActionTitles>
-            <ActionContent>
-              <div>
-                <Earned>{displayBalance}</Earned>
-              </div>
-              <IconButtonWrapper>
-                <IconButton variant="secondary" onClick={onPresentWithdraw} mr="6px">
-                  <MinusIcon color="primary" />
-                </IconButton>
-                <IconButton variant="secondary" onClick={onPresentDeposit}>
-                  <AddIcon color="primary" />
-                </IconButton>
-              </IconButtonWrapper>
-            </ActionContent>
-          </ActionContainer>
-        )
-      }
+  if (!account) {
+    return (
+      <ActionContainer>
+        <ActionTitles>
+          <Subtle>{TranslateString(999, 'START FARMING')}</Subtle>
+        </ActionTitles>
+        <ActionContent>
+          <UnlockButton fullWidth />
+        </ActionContent>
+      </ActionContainer>
+    )
+  }
 
+  if (isApproved) {
+    if (rawStakedBalance) {
       return (
         <ActionContainer>
           <ActionTitles>
-            <Subtle>{TranslateString(999, 'STAKE')} </Subtle>
-            <Title>{lpSymbol}</Title>
+            <Title>{lpSymbol} </Title>
+            <Subtle>{TranslateString(999, 'STAKED')}</Subtle>
           </ActionTitles>
           <ActionContent>
-            <Button fullWidth onClick={onPresentDeposit} variant="secondary">
-              {TranslateString(999, 'Stake LP')}
-            </Button>
+            <div>
+              <Earned>{displayBalance}</Earned>
+            </div>
+            <IconButtonWrapper>
+              <IconButton variant="secondary" onClick={onPresentWithdraw} mr="6px">
+                <MinusIcon color="primary" />
+              </IconButton>
+              <IconButton variant="secondary" onClick={onPresentDeposit}>
+                <AddIcon color="primary" />
+              </IconButton>
+            </IconButtonWrapper>
           </ActionContent>
         </ActionContainer>
       )
@@ -111,11 +108,12 @@ const Staked: React.FunctionComponent<FarmWithStakedValue> = ({
     return (
       <ActionContainer>
         <ActionTitles>
-          <Subtle>{TranslateString(999, 'ENABLE FARM')}</Subtle>
+          <Subtle>{TranslateString(999, 'STAKE')} </Subtle>
+          <Title>{lpSymbol}</Title>
         </ActionTitles>
         <ActionContent>
-          <Button fullWidth disabled={requestedApproval} onClick={handleApprove} variant="secondary">
-            {TranslateString(999, 'Enable')}
+          <Button fullWidth onClick={onPresentDeposit} variant="secondary">
+            {TranslateString(999, 'Stake LP')}
           </Button>
         </ActionContent>
       </ActionContainer>
@@ -125,10 +123,12 @@ const Staked: React.FunctionComponent<FarmWithStakedValue> = ({
   return (
     <ActionContainer>
       <ActionTitles>
-        <Subtle>{TranslateString(999, 'START FARMING')}</Subtle>
+        <Subtle>{TranslateString(999, 'ENABLE FARM')}</Subtle>
       </ActionTitles>
       <ActionContent>
-        <UnlockButton fullWidth />
+        <Button fullWidth disabled={requestedApproval} onClick={handleApprove} variant="secondary">
+          {TranslateString(999, 'Enable')}
+        </Button>
       </ActionContent>
     </ActionContainer>
   )
