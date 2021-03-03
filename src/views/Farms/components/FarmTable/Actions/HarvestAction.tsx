@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useWallet } from '@binance-chain/bsc-use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import { Button } from '@pancakeswap-libs/uikit'
 import BigNumber from 'bignumber.js'
 import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard'
@@ -25,7 +25,7 @@ const HarvestAction: React.FC<FarmWithStakedValue> = ({ pid, userData }) => {
   }
 
   const [pendingTx, setPendingTx] = useState(false)
-  const { account } = useWallet()
+  const { account } = useWeb3React()
   const { onReward } = useHarvest(pid)
   const TranslateString = useI18n()
 

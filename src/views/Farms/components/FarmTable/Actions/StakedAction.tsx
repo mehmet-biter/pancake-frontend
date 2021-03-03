@@ -2,16 +2,17 @@ import React, { useState, useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 import { Button, useModal, IconButton, AddIcon, MinusIcon } from '@pancakeswap-libs/uikit'
 import UnlockButton from 'components/UnlockButton'
-import { useWallet } from '@binance-chain/bsc-use-wallet'
+import { useWeb3React } from '@web3-react/core'
 import { useFarmUser } from 'state/hooks'
 import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard'
 import useI18n from 'hooks/useI18n'
 import { useApprove } from 'hooks/useApprove'
-import { getContract } from 'utils/erc20'
+import { getBep20Contract } from 'utils/contractHelpers'
 import { BASE_ADD_LIQUIDITY_URL } from 'config'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import { getBalanceNumber } from 'utils/formatBalance'
 import useStake from 'hooks/useStake'
+import useWeb3 from 'hooks/useWeb3'
 import useUnstake from 'hooks/useUnstake'
 import { provider } from 'web3-core'
 
@@ -32,11 +33,12 @@ const Staked: React.FC<FarmWithStakedValue> = ({
   tokenAddresses,
 }) => {
   const TranslateString = useI18n()
-  const { account, ethereum }: { account: string; ethereum: provider } = useWallet()
+  const { account } = useWeb3React()
   const [requestedApproval, setRequestedApproval] = useState(false)
   const { allowance, tokenBalance, stakedBalance } = useFarmUser(pid)
   const { onStake } = useStake(pid)
   const { onUnstake } = useUnstake(pid)
+  const web3 = useWeb3()
 
   const isApproved = account && allowance && allowance.isGreaterThan(0)
 
@@ -51,9 +53,7 @@ const Staked: React.FC<FarmWithStakedValue> = ({
   )
   const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={lpSymbol} />)
 
-  const lpContract = useMemo(() => {
-    return getContract(ethereum as provider, lpAddress)
-  }, [ethereum, lpAddress])
+  const lpContract = getBep20Contract(lpAddress, web3)
 
   const { onApprove } = useApprove(lpContract)
 
@@ -112,7 +112,7 @@ const Staked: React.FC<FarmWithStakedValue> = ({
           <Title>{lpSymbol}</Title>
         </ActionTitles>
         <ActionContent>
-          <Button fullWidth onClick={onPresentDeposit} variant="secondary">
+          <Button onClick={onPresentDeposit} variant="secondary" width="100%">
             {TranslateString(999, 'Stake LP')}
           </Button>
         </ActionContent>
@@ -126,7 +126,7 @@ const Staked: React.FC<FarmWithStakedValue> = ({
         <Subtle>{TranslateString(999, 'ENABLE FARM')}</Subtle>
       </ActionTitles>
       <ActionContent>
-        <Button fullWidth disabled={requestedApproval} onClick={handleApprove} variant="secondary">
+        <Button disabled={requestedApproval} onClick={handleApprove} variant="secondary" width="100%">
           {TranslateString(999, 'Enable')}
         </Button>
       </ActionContent>
