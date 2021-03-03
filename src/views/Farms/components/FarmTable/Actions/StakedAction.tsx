@@ -14,7 +14,6 @@ import { getBalanceNumber } from 'utils/formatBalance'
 import useStake from 'hooks/useStake'
 import useWeb3 from 'hooks/useWeb3'
 import useUnstake from 'hooks/useUnstake'
-import { provider } from 'web3-core'
 
 import DepositModal from '../../DepositModal'
 import WithdrawModal from '../../WithdrawModal'

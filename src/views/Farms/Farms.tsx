@@ -14,7 +14,6 @@ import { fetchFarmUserDataAsync } from 'state/actions'
 import { QuoteToken } from 'config/constants/types'
 import useI18n from 'hooks/useI18n'
 import { getBalanceNumber } from 'utils/formatBalance'
-import { provider } from 'web3-core'
 import { orderBy } from 'lodash'
 
 import FarmCard, { FarmWithStakedValue } from './components/FarmCard/FarmCard'
